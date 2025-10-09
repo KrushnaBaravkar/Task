@@ -78,7 +78,7 @@ int main() {
     ll.push_back(7);
     // till now, we have created a link list
     
-    //printing the linklist
+    //printing the linklist.
     ll.print_ll();
 
     ll.pop_back();
