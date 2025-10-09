@@ -23,7 +23,7 @@ public:
     
     // adding node using push back
     void push_back(int val){
-        Node* newNode = new Node (val);  // creating dynamic object/ node
+        Node* newNode = new Node(val);  // creating dynamic object/ node
         if(head == NULL){
             head = tail = newNode;
             //cout<<head->data<<" , "<<head;  // printing data and the memory location
@@ -61,6 +61,24 @@ public:
         delete temp; 
     }
 
+    //Adding node at Pth position 
+    void new_node(int a, int position){
+        if(position < 0){
+            cout<<"invalid position.";
+            return;
+        }
+        
+        Node* newNode = new Node (a);
+        int n = 0;
+        Node* temp = head;
+        while(n != (position-1)){
+            temp = temp->next;
+            n++;
+        }
+        newNode->next = temp->next;
+        temp->next = newNode;
+    }
+
     void print_ll(){
         Node* temp = head;
         while(temp != NULL){
@@ -81,7 +99,7 @@ int main() {
     //printing the linklist.
     ll.print_ll();
 
-    ll.pop_back();
+    ll.new_node(10, 1);
     ll.print_ll();
 
     return 0;
