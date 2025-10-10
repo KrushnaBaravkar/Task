@@ -32,7 +32,7 @@ public:
             newNode->next = head;
             head = newNode;
         }
-    }
+    }  // T.C = o(1)
 
     // adding node using push back
     void push_back(int val){
@@ -46,7 +46,7 @@ public:
             tail->next = newNode;
             tail = newNode;   
         }
-    }
+    }   // T.C = o(1)
     
     //ramoving node fron front using pop front.
     void pop_front(){
@@ -57,7 +57,7 @@ public:
         head = head->next;
         temp->next = NULL;
         delete temp; 
-    }
+    }   // T.C = o(1)
     
     // removing node from back;
     void pop_back(){
@@ -72,7 +72,7 @@ public:
         tail->next = NULL;
         temp = temp->next;
         delete temp; 
-    }
+    }   // T.C = o(n)
 
     //Adding node at Pth position 
     void new_node(int a, int position){
@@ -88,6 +88,10 @@ public:
             Node* newNode = new Node (a);
             int n = 0;
             Node* temp = head;
+            if(temp == NULL){
+                cout<<"invalid position";
+                return;
+            }
             while(n != (position-1)){
                 temp = temp->next;
                 n++;
@@ -96,7 +100,7 @@ public:
             temp->next = newNode;
         }
         
-    }
+    }   // T.C = o(n)
 
     void print_ll(){
         Node* temp = head;
@@ -105,7 +109,7 @@ public:
             temp = temp->next;
         }
         cout<<endl;
-    }
+    }   // T.C = o(n)
 };
 
 int main() {
