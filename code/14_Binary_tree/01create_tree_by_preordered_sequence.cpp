@@ -29,34 +29,35 @@ Node* buildTree(vector<int> vec){
     return currNode;
 }
 
-void preorderTravel(Node* root){
+void pre_order_Travel(Node* root){
     if(root == NULL){
         return;
     }
     cout<<root->data<<" ";
-    preorderTravel(root->left);
-    preorderTravel(root->right);
+    pre_order_Travel(root->left);
+    pre_order_Travel(root->right);
 }
 
-void inorderTravel(Node* root){
+void in_order_Travel(Node* root){
     if(root == NULL){
         return;
     }
-    inorderTravel(root->right);
+    in_order_Travel(root->right);
     cout<<root->data<<" ";
-    inorderTravel(root->left);
+    in_order_Travel(root->left);
 }
 
-void postorderTravel(Node* root){
+void post_order_Travel(Node* root){
     if(root == NULL){
         return;
     }
-    inorderTravel(root->right);
-    inorderTravel(root->left);
+    post_order_Travel(root->right);
+    post_order_Travel(root->left);
     cout<<root->data<<" ";
 } 
 
-void levelorderTreversal(Node* root){
+// without recurssion.
+void leve_lorder_Treversal(Node* root){
     if(root == NULL){
         return;
     }
@@ -81,7 +82,7 @@ void levelorderTreversal(Node* root){
     cout<<" "<<endl; 
 }
 
-// printing the tree level wise.
+// printing the tree level wise(in the form of tree).
 void levelorderTreversal1(Node* root){
     if(root == NULL){
         return;
@@ -116,6 +117,7 @@ void levelorderTreversal1(Node* root){
     cout<<" "<<endl; 
 }
 
+// height of the tree.
 int height_of_TREE(Node* root){
     if(root == NULL){
         return 0;
@@ -126,14 +128,215 @@ int height_of_TREE(Node* root){
     return max(left_height, right_height) + 1;
 }
 
+// count of the Nodes present in the subtree.
+int count_of_nodes(Node* root){
+    if(root == NULL){
+        return 0;
+    }
+    int left_count = count_of_nodes(root->left);
+    int right_count = count_of_nodes(root->right);
+    return left_count + right_count + 1;
+}
 
-int main() {
+// sum of all the nodes of the tree
+int sum_of_nodes(Node* root){
+    if(root == NULL){
+        return 0;
+    }
+    int left_sum = sum_of_nodes(root->left);
+    int right_sum = sum_of_nodes(root->right);
+    return (left_sum + right_sum + root->data);
+}
+
+// Diameter of the tree 
+// approch 1 - o(n^2) time complexivity   
+int diameter(Node* root){
+    if(root == NULL){
+        return 0;
+    }
+    int curr_diameter = (height_of_TREE(root->left) + height_of_TREE(root->right) + 1);
+    int left_tree_diam = diameter(root->left);
+    int right_tree_diam = diameter(root->right);
+    //return max(curr_diameter, max(left_tree_diam, right_tree_diam));  
+    return max({curr_diameter, left_tree_diam, right_tree_diam});  
+}
+
+// Diameter approch 2
+// approch has - complexivity of o(n).
+pair<int, int> diameter1(Node* root){
+    if(root == NULL){
+        return make_pair(0, 0);
+    }
+    // (Diameter, height)
+    pair<int, int> leftinfo = diameter1(root->left);
+    pair<int, int> rightinfo = diameter1(root->right);
+
+    int currDiam = leftinfo.second + rightinfo.second + 1;
+    int finalDiam = max(currDiam, max(leftinfo.first, rightinfo.first));
+    int currHei = max(leftinfo.second, rightinfo.second) + 1;
+    return make_pair(finalDiam, currHei);
+}  // try to find out is there any space complexivity is there or not.
+
+
+// self written logic for identifying the subtree in the main tree
+// bool find_tree(Node* root, Node* subroot){
+//     if(root == NULL && subroot == NULL){
+//         return true;
+//     }
+//     else if((root != NULL && subroot == NULL) || (root == NULL && subroot != NULL)){
+//         return false;
+//     }
+//     if(root->data == subroot->data){
+//         return (find_tree(root->left, subroot->left) && find_tree(root->right, subroot->right));
+//         // here is the bug, only one function unable to find the structure and identity of the subtree in the main tree so we wanted to use another function to match the identicalness and the structure.
+//     }
+//     else{
+//         int isLeftSubtree = isSubTree(root->left, subroot);
+//         if(!isLeftSubtree){
+//             return isSubTree(root->right, subroot);
+//         }
+//     }
+// }  
+
+
+// ideal logic for the above functionality 
+// following function is just for checking the tree after the found identical root, can it leade to the identicalness of both the trees or not???.
+bool isIdentical(Node* root1, Node* root2){
+    if(root1 == NULL && root2 == NULL){
+        return true;
+    }
+    else if(root1 == NULL || root2 == NULL){
+        return false;
+    }
+    if(root1->data != root2->data){
+        return false;
+    }
+    return (isIdentical(root1->left, root2->left) && isIdentical(root1->right, root2->right));
+}
+// followin function is for finding the first identical nodes as try to match the nodes of the main tree to the first node of the given subtree.
+bool isSubTree(Node* root, Node* subroot){
+    if(root == NULL && subroot == NULL){
+        return true;
+    }
+    else if((root != NULL && subroot == NULL) || (root == NULL && subroot != NULL)){
+        return false;
+    }
+    
+    if(root->data == subroot->data){
+        //identical case for the subtrees
+        if(isIdentical(root, subroot)){
+            return true;
+        }
+    }
+
+    int isLeftSubtree = isSubTree(root->left, subroot);
+    if(!isLeftSubtree){
+        return isSubTree(root->right, subroot);
+    }
+}
+
+// topview of the binary tree 
+void topView(Node*root){
+    if(root == NULL) return;  // base case
+
+    queue<pair<Node*, int>> Q; // pair(Node ptr, Horozontal_distance)
+    map<int, int> m; // (horozonatl_diatance, currNode->data)
+
+    Q.push(make_pair(root, 0));
+    while(!Q.empty()){
+        pair<Node*, int> currPair = Q.front();
+        Q.pop(); // removing is imp else it goes like the inginite loop;
+        Node* currNode = currPair.first;
+        int currHD = currPair.second;
+
+        if(m.count(currHD) == 0){  // count for HD = 0 then add that uniquely visable node from the above.
+            m[currHD] = currNode->data;
+        }
+
+        if(currNode->left !=  NULL){
+            pair<Node*, int> left = make_pair(currNode->left, currHD - 1);
+            Q.push(left);
+        }
+        if(currNode->right !=  NULL){
+            pair<Node*, int> right = make_pair(currNode->right, currHD + 1);
+            Q.push(right);
+        }
+    }
+    for(auto it : m){
+        cout<<it.second<<" ";
+    }
+    cout<<endl;
+} 
+
+// Kth level problem 
+// following is the helper function that we should creat in the question, to solve it with one additional argument as currecn level of the node.
+void KthHelper(Node* root, int k, int currLevel){
+    if(root == NULL){
+        return;
+    }
+    if(currLevel == k){
+        cout<<root->data<<" ";
+        return;
+    }
+    KthHelper(root->left, k, currLevel+1);
+    KthHelper(root->right, k, currLevel+1);
+}
+// following is tha function provide in the question. we should use that only, so that we use the helper function be make task easy.
+void KthLevel(Node* root, int k){
+    KthHelper(root, k, 1);
+    return;
+}
+
+// Lowest common ancestor.
+// Approch 1 - with time complexivity of o(n) and space complexivity is also o(n)
+// function to find the path.
+bool findPath(Node* root, int k, vector<int> &V){
+    if(root == NULL){
+        return false;
+    }
+    // vector<int> V;
+    V.push_back(root->data);
+    if(root->data == k){
+        return true;
+    }
+    if(((findPath(root->left, k, V))||(findPath(root->right, k, V)))){
+        return true;
+    }
+    V.pop_back();
+    return ((findPath(root->left, k, V))||(findPath(root->right, k, V)));
+}
+// function to valiadate the LCA for the found 2 paths.
+int LCA(Node* root, int n1, int n2){
+    vector<int> V1;
+    vector<int> V2;
+    findPath(root, n1, V1);
+    findPath(root, n2, V2);
+    int n = 0;
+    int lca = -1;
+    while(!(V1.empty() || V2.empty())){
+        if(V1[n] != V2[n]){
+            return lca;
+        }
+        lca = V1[n];
+        n++;
+    }
+    return -1;
+}
+
+//Lowest common ancestor 
+//Approch - 2 (time complexivity of o(n) + space complexivity of o(0))
+
+int main() {  
     vector<int> arr = {1,2,4,-1,-1,5,-1,-1,3,-1,6,-1,-1};
 
     Node* root = buildTree(arr);
     // cout<<"root data = "<<root->data;
+    //creating the subtree to check the ufunction defined to check the subtree problem 
+    Node* subroot = new Node(2);
+    // subroot->left = new Node(4);
+    // subroot->right = new Node(6);
+    // cout<<"existance of the subtree : "<<isSubTree(root, subroot)<<endl;
 
-    int height = height_of_TREE(root);
-    cout<<"height of the given tree : "<<height<<endl;
+    cout<<"LCA : "<<LCA(root, 5, 6 );
     return 0;
 }
