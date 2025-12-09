@@ -325,7 +325,22 @@ int LCA(Node* root, int n1, int n2){
 
 //Lowest common ancestor 
 //Approch - 2 (time complexivity of o(n) + space complexivity of o(0))
+Node* LCA2(Node* root, int n1, int n2){
+    if(root->left == NULL && root->right == NULL){
+        return NULL;
+    }
+    if(root->data == n1 || root->data == n2){
+        return root;
+    }
+    Node* leftLCA = LCA2(root->left, n1, n2);
+    Node* rightLCA = LCA2(root->right, n1, n2);
 
+    if(leftLCA != NULL && rightLCA != NULL){
+        return root;
+    }
+
+    return leftLCA == NULL ? rightLCA : leftLCA;  // treneary statement accounts all the three cases of the leftTREE and rightTree
+}
 int main() {  
     vector<int> arr = {1,2,4,-1,-1,5,-1,-1,3,-1,6,-1,-1};
 
@@ -337,6 +352,6 @@ int main() {
     // subroot->right = new Node(6);
     // cout<<"existance of the subtree : "<<isSubTree(root, subroot)<<endl;
 
-    cout<<"LCA : "<<LCA(root, 5, 6 );
+    cout<<"LCA : "<<LCA2(root, 5, 6 );
     return 0;
 }
