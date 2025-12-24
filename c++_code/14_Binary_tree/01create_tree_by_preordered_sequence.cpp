@@ -324,7 +324,7 @@ int LCA(Node* root, int n1, int n2){
 }
 
 //Lowest common ancestor 
-//Approch - 2 (time complexivity of o(n) + space complexivity of o(0))
+//Approch - 2 (time complexivity of o(n) + space complexivity of o(1))
 Node* LCA2(Node* root, int n1, int n2){
     if(root->left == NULL && root->right == NULL){
         return NULL;
@@ -341,6 +341,30 @@ Node* LCA2(Node* root, int n1, int n2){
 
     return leftLCA == NULL ? rightLCA : leftLCA;  // treneary statement accounts all the three cases of the leftTREE and rightTree
 }
+
+int KthAncistor(Node* root, int n, int k){
+    if(root == NULL){
+        return -1;
+    }
+    if(root->data == n){
+        return 0;  // distance to itself is 0
+    }
+    int left = KthAncistor(root->left, n, k);
+    int right = KthAncistor(root->right, n, k);
+
+    if(left == -1 && right == -1){
+        return -1;
+    };
+    int dist = 1 + (left == -1 ? right : left);
+    if(dist == k){
+        return root->data;  // correct ancestor
+    }
+    return dist; // pass distance upward
+}
+
+// Transform to Sum Tree;
+
+
 int main() {  
     vector<int> arr = {1,2,4,-1,-1,5,-1,-1,3,-1,6,-1,-1};
 
@@ -352,6 +376,6 @@ int main() {
     // subroot->right = new Node(6);
     // cout<<"existance of the subtree : "<<isSubTree(root, subroot)<<endl;
 
-    cout<<"LCA : "<<LCA2(root, 5, 6 );
+    cout<<"Kth ancestor : "<<KthAncistor(root, 1  , 1);
     return 0;
 }
