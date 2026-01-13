@@ -55,3 +55,33 @@ int main() {
 
     return 0;
 }
+
+
+/*
+# Data-structure -> 1D linked-list
+   - stl container -> forward_list -> works on datastructure 1D list.
+   
+# Data-structure -> dounled linked-list 
+   - stl container -> list -> works on datastructure doubled linked-list.
+
+# Doubled linked-list - A doubly linked list is a 1D linear data structure where each node has two pointers
+    struct Node {
+        int data;
+        Node* prev;
+        Node* next;
+    };
+
+# 2D Linked-List - A 2D linked list is a grid-like structure, similar to a 2D matrix, where each node is connected in two directions (row & column).
+ex: 
+[ ] → [ ] → [ ]
+ ↓     ↓     ↓
+[ ] → [ ] → [ ]
+ ↓     ↓     ↓
+[ ] → [ ] → [ ]
+
+struct Node {
+    int data;
+    Node* right;   // next column
+    Node* down;    // next row
+};
+*/

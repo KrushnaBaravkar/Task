@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-struct Node {
+struct Node {  // use when no need of class functions and no need of encapsulation.
     int data;
     Node* next;
     
