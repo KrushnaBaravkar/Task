@@ -21,6 +21,9 @@ struct Node {
 int main() {
     vector<int> arr = {2, 5, 8, 7};
     Node* y = new Node(arr[0], nullptr); // Create first node with value 2
-    cout << y; // Output: 2
+    Node* z = new Node(arr[1]); // Create first node with value 2
+    y->next = z;
+    cout << y->next<<"  "<<z<<endl; // Output: 2
+    cout<<y->data<<"  "<<y->next->data<<"  "<< z->data;
     return 0;
 }
