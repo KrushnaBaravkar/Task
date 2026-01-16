@@ -1,0 +1,88 @@
+// implementation for disconnected graphs. 
+// minor changes in DFS and BFS approaches.
+
+#include <bits/stdc++.h>
+using namespace std;
+
+class graph{
+    int v; // No. of vertex
+    list<int>* l;  // l is pointer points list<int> object. 
+
+public:
+    graph(int v){
+        this->v = v;
+        l = new list<int> [v];   // initialize v new lists and l points to 1st, l[1] points second and so on 
+    }
+
+    void addEdge(int u, int v){  // u -- v   --> there exist edge between u and v.
+        l[u].push_back(v);
+        l[v].push_back(u);
+    }
+
+    void BFShelper(int start_vertex , vector<bool> &validation){
+        queue<int> q;  // for storing the vertes level wise
+        // vector<bool> validation(v, false);    // validating that the vertes is done or not, becaues different from BT here one vertex can have more that 3 neighoubers. in this case there is the possibility of the dublicates.
+
+        q.push(start_vertex);    // initializing the process with starting node with our choice.
+        validation[start_vertex] = true;
+        while(q.size() > 0){    // iteration till the all the nodes will get completed.
+            for(int i : l[q.front()]){
+                if(validation[i] == false){
+                    q.push(i);
+                    validation[i] = true;
+                }
+            }
+            cout<<q.front()<<", ";
+            q.pop();
+        }
+    }
+    void BSF(){   // function takes care of all the disconnected things should cavered.
+        vector<bool> validation(v, false);
+        for(int i=0; i<v; i++){
+            if(!validation[i]){
+                BFShelper(i, validation);
+                cout<<endl; 
+            }
+        }
+    }
+
+    void dfsHelper(int u, vector<bool> &vis) {
+        cout << u << " ";
+        vis[u] = true;
+        list<int> neighbors = l[u];
+
+        for (int v : neighbors) {
+            if (!vis[v]) {
+                dfsHelper(v, vis);
+            }
+        }
+    }
+
+    void dfs() {
+        vector<bool> vis(v, false);
+        for(int i=0; i<v; i++){  // will check for all the vertexes. as it get any unreached vertes it calls helper and then helper travell that other tree from the previous.
+            if(!vis[i]){
+                dfsHelper(i, vis);
+            }
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    graph gp(7);
+    gp.addEdge(0,1);
+    gp.addEdge(0,2);
+    gp.addEdge(1,3);
+    gp.addEdge(2,4);
+    gp.addEdge(3,5);
+    gp.addEdge(4,5);
+    gp.addEdge(5,6);
+
+    // gp.BFS(4);
+
+    vector<bool> vec(7, false);
+    gp.dfs();
+
+    return 0;
+}
