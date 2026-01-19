@@ -1,5 +1,4 @@
-// unordered and unweighted graphs.
-// Building graph using "Adjacency List".
+// directed graph = cycle detection = using DFS.
 
 
 #include <bits/stdc++.h>
@@ -27,7 +26,7 @@ public:
         list<int> neighbors = l[u];
         for (int v : neighbors) {
             if (!vis[v]) {
-                if (helper(v, vis, recurssion))
+                if(helper(v, vis, recurssion))
                     return true;
             }
             else if(recurssion[v]){
