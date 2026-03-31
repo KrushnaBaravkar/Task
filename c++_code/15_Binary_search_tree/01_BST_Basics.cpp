@@ -203,7 +203,7 @@ Node* sequenceToBalanceBST(vector<int> arr){
     int index = arr.size() / 2;
     Node* root = new Node(arr[index]);
     root->left = sequenceToBalanceBST(arr[]);
-    root->right = sequenceToBalanceBST(arr[index+1:]);
+    root->right = sequenceToBalanceBST(arr[index+1]);
     return root;
 }
 

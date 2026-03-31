@@ -60,7 +60,7 @@ public:
         sort(edges.begin(), edges.end(),
              [](Edge &a, Edge &b) {
                  return a.wt < b.wt;
-             });
+             });  // sorting logic with lamda function for comparision.
 
         int minCost = 0;
 

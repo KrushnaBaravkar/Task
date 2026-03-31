@@ -16,8 +16,8 @@ public:
         v.push_back(n);
         while(parent>=0 && v[child] > v[parent]){    // O(log(n))
             swap(v[child], v[parent]);
-            child = parent;
-            parent = (child - 1)/2;
+            child = parent;          // updated child.
+            parent = (child - 1)/2;  // updated parent.
         }
     }
 

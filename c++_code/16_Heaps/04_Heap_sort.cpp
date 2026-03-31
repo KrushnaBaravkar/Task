@@ -19,10 +19,10 @@ void heapify(vector<int> &arr, int i, int n){
     }
 }
 
-void heap_sort(vector<int> &arr, int n){
+void heap_sort(vector<int> &arr, int n){ // n - array size.
     // step 1 : creating max heap
     for(int i = (n/2)-1; i>=0; i--){
-        heapify(arr, i, n);
+        heapify(arr, i, n);              
     }
 
     // step 2 : swapping 1st element(mas_element) and last element and form assending order 
