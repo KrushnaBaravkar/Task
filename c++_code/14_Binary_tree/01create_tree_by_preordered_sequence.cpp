@@ -15,10 +15,11 @@ public:
 
 static int idx = -1;
 
+// building the tree using Preorde traversel-it uses the vector of node values in which null/end of the branch is being shown by -1 value.
 Node* buildTree(vector<int> vec){   
     idx++;
 
-    if(vec[idx] == -1){
+    if(vec[idx] == -1){       // end of the branch.
         return NULL;
     }
 
@@ -29,6 +30,7 @@ Node* buildTree(vector<int> vec){
     return currNode;
 }
 
+// Preorder traversal.
 void pre_order_Travel(Node* root){
     if(root == NULL){
         return;
@@ -38,6 +40,7 @@ void pre_order_Travel(Node* root){
     pre_order_Travel(root->right);
 }
 
+// InOrder traversal.
 void in_order_Travel(Node* root){
     if(root == NULL){
         return;
@@ -47,6 +50,7 @@ void in_order_Travel(Node* root){
     in_order_Travel(root->left);
 }
 
+// PostOrder traversal.
 void post_order_Travel(Node* root){
     if(root == NULL){
         return;
@@ -56,6 +60,7 @@ void post_order_Travel(Node* root){
     cout<<root->data<<" ";
 } 
 
+// LEVEL order traversal-Bredth first approch.
 // without recurssion.
 void leve_lorder_Treversal(Node* root){
     if(root == NULL){
@@ -117,7 +122,7 @@ void levelorderTreversal1(Node* root){
     cout<<" "<<endl; 
 }
 
-// height of the tree.
+// Height of the tree.
 int height_of_TREE(Node* root){
     if(root == NULL){
         return 0;
@@ -148,7 +153,7 @@ int sum_of_nodes(Node* root){
     return (left_sum + right_sum + root->data);
 }
 
-// Diameter of the tree 
+// DIAMETER of the binary tree 
 // approch 1 - o(n^2) time complexivity   
 int diameter(Node* root){
     if(root == NULL){

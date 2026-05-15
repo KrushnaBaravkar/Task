@@ -29,6 +29,7 @@ Node* insert(Node* root, int val) {
     return root;
 }
 
+// Building BST using incert function.
 Node* buildBST(int arr[], int n) {
     Node* root = nullptr;
     for (int i = 0; i < n; i++) {
@@ -37,6 +38,7 @@ Node* buildBST(int arr[], int n) {
     return root;
 }
 
+// Printing elements of BST in order.
 void inorder(Node* root) {
     if (root == nullptr) {
         return;
@@ -46,6 +48,7 @@ void inorder(Node* root) {
     inorder(root->right);
 }
 
+// searchaing element is the BST.
 bool search(Node* root, int key) {
     if (root == NULL) {
         return false;
@@ -62,6 +65,7 @@ bool search(Node* root, int key) {
     }
 }
 
+// printing the left most element.
 Node* IS(Node* root){
     if(root->left == NULL){
         return root;
@@ -78,6 +82,10 @@ Node* IS(Node* root){
 //     return root;
 // }
 // Node delation function.
+
+
+// deleting the element from the binary tree.
+// IMP
 Node* delet_node(Node* root, int val){
     if(root == NULL){
         return NULL;
@@ -100,6 +108,7 @@ Node* delet_node(Node* root, int val){
         //case 2 : 1 child case
         if(root->left == NULL || root->right == NULL){
             return root->left == NULL ? root->right : root->left;
+            // if(root->left == NULL) do root->right this else root->left
         }
 
         //case 3 : 2 children case.
@@ -114,6 +123,7 @@ Node* delet_node(Node* root, int val){
     
 }
 
+// printing all the nodes which values lies in given range that is start to en,
 void print_in_range(Node* root, int start, int end){
     if(root == NULL){
         return;
@@ -138,7 +148,7 @@ void printpath(vector<int> path){
     }
     cout<<endl;
 }
-void PathHelper(Node* root, vector<int> &path){  //have a look of the function carefully, it is bit tricky.
+void PathHelper(Node* root, vector<int> &path){  //have a look of the function carefully, it is bit triky.
     // if(root->left == NULL){
     //     int i = 0;
     //     vector<int> temp = path;
@@ -162,15 +172,17 @@ void PathHelper(Node* root, vector<int> &path){  //have a look of the function c
 
     if(root->left == NULL && root->right == NULL){
         printpath(path);
-        path.pop_back();   //IMP Link
+        path.pop_back();   //IMP Link - pop if last entered node 
         return;
     }
 
     PathHelper(root->left, path);
     PathHelper(root->right, path);
 
-    path.pop_back();
+    path.pop_back();  // pop the element of all the paths from that got printed. 
 }
+// printing all the path from root to leaf.
+// Try to dryrun then only you got to know how it works.
 void rootToLeafPath(Node* root){
     vector<int> path;
     PathHelper(root, path);
@@ -204,6 +216,26 @@ Node* sequenceToBalanceBST(vector<int> arr){
     Node* root = new Node(arr[index]);
     root->left = sequenceToBalanceBST(arr[]);
     root->right = sequenceToBalanceBST(arr[index+1]);
+    return root;
+}
+// correct version of the above code
+Node* sequenceToBalanceBST(vector<int> arr) {
+    if (arr.size() == 0) {
+        return NULL;
+    }
+
+    int index = arr.size() / 2;
+    Node* root = new Node(arr[index]);
+
+    // slice left half:  elements before mid
+    vector<int> leftArr(arr.begin(), arr.begin() + index);
+
+    // slice right half: elements after mid
+    vector<int> rightArr(arr.begin() + index + 1, arr.end());
+
+    root->left  = sequenceToBalanceBST(leftArr);
+    root->right = sequenceToBalanceBST(rightArr);
+
     return root;
 }
 
