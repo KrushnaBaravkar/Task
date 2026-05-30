@@ -73,3 +73,6 @@ int main() {
     
     return 0;
 }
+
+
+// try to implement for steps 1, 3 are alloud 
