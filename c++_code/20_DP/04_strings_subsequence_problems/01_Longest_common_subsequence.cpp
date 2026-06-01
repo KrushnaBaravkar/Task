@@ -23,7 +23,7 @@ int longest_subsequence_recurssion(string &s1, string &s2, int i/* index of s1*/
 
 // function for returning the length of the largest subsequence of given 2 strings.
 // Memoization(DP) approch.
-int longest_subsequence_memoization(string &s1, string &s2, int i/* height of the storage */, int j /* weidth of the storage*/, vector<vector<int>> &dp/*DP storage*/){
+int longest_subsequence_memoization(string &s1, string &s2, int i/* Size of s1 */, int j /* size of s2*/, vector<vector<int>> &dp/*DP storage*/){
     if(i == 0 || j == 0){
         return 0;
     }
@@ -44,23 +44,25 @@ int longest_subsequence_memoization(string &s1, string &s2, int i/* height of th
 }
 
 
-// returning the largest subsequence from the given strings.
-string largest_subsequence_recurssion(string &s1, string &s2, int i/* index of s1*/, int j /*index for s2*/, string ans){
-    if(s1.size() == i || s2.size() == j){
-        return ans;
+// Tabulation approch 
+int longest_subsequence_tabulation(string &s1, string &s2, int i/* height of the storage */, int j /* weidth of the storage*/){
+    // dp storage
+    vector<vector<int>> dp(i+1, vector<int>(j+1, 0));
+
+    for(int k=1; k<=i; k++){
+        for(int l=1; l<=j; l++){
+            if(s1[k - 1] == s2[l - 1]){
+                dp[k][l] = 1 + dp[k-1][l-1];
+            }
+            else{
+                int ans1 = dp[k-1][l];
+                int ans2 = dp[k][l-1];
+                dp[k][l] = (ans1 > ans2) ? ans1 : ans2;     
+            }
+        }
     }
 
-    if(s1[i] == s2[j]){
-        ans.push_back(s1[i]);
-        return largest_subsequence_recurssion(s1, s2, i+1, j+1, ans);
-    }
-    else{
-        string ans1 = largest_subsequence_recurssion(s1, s2, i+1, j, ans);
-        string ans2 = largest_subsequence_recurssion(s1, s2, i, j+1, ans);
-        ans = (ans1.size() > ans2.size()) ? ans1 : ans2; 
-    }
-
-    return ans;
+    return dp[i][j];
 }
 
 int main() {
@@ -77,6 +79,9 @@ int main() {
     int j = s2.size();
 
     vector<vector<int>> dp(i+1 , vector<int> (j+1, -1));
-    cout<<"longest subsequence with memoization approch is : "<< longest_subsequence_memoization(s1, s2, i, j, dp)<<endl;
+    // cout<<"longest subsequence with memoization approch is : "<< longest_subsequence_memoization(s1, s2, i, j, dp)<<endl;
+    
+    // tabiulaion approch 
+    cout<<"longest subsequence with Tabulation approch is : "<<longest_subsequence_tabulation(s1, s2, i, j);
     return 0;
 }
