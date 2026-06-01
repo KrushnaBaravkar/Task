@@ -1,13 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// function for returning the length of the largest subsequence of given 2 strings.
-int largest_subsequence_length_recurssion(){
-    return;
-}
-
 // returning the largest subsequence from the given strings.
-string largest_subsequence_recurssion(string s1, string s2, int i/* index of s1*/, int j /*index for s2*/, string ans){
+string largest_subsequence_recurssion(string &s1, string &s2, int i/* index of s1*/, int j /*index for s2*/, string ans){
     if(s1.size() == i || s2.size() == j){
         return ans;
     }
@@ -24,11 +19,17 @@ string largest_subsequence_recurssion(string s1, string s2, int i/* index of s1*
 
     return ans;
 }
+
+/*
+try to write the memoization and tabulation code of the same
+*/
+
 int main() {
     string s1 = "abcdgeeehgdhhcnmgk";
-    string s2 = "abedgeeeeelgdgnhd";
+    string s2 = "abe";
     string ans= "";
 
-    cout<<"largest subsequence is : "<< largest_subsequence_recurssion(s1, s2, 0, 0, ans);
+    cout<<"largest subsequence is : "<< largest_subsequence_recurssion(s1, s2, 0, 0, ans)<<endl;
+
     return 0;
 }
