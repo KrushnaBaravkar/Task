@@ -44,7 +44,7 @@ int longest_subsequence_memoization(string &s1, string &s2, int i/* Size of s1 *
 }
 
 
-// Tabulation approch 
+// Tabulation approch - 1143
 int longest_subsequence_tabulation(string &s1, string &s2, int i/* height of the storage */, int j /* weidth of the storage*/){
     // dp storage
     vector<vector<int>> dp(i+1, vector<int>(j+1, 0));
