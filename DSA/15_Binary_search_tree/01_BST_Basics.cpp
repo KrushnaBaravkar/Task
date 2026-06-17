@@ -23,7 +23,9 @@ Node* insert(Node* root, int val) {
 
     if (val < root->data) {
         root->left = insert(root->left, val);
-    } else {
+    } 
+    
+    else {
         root->right = insert(root->right, val);
     }
     return root;
