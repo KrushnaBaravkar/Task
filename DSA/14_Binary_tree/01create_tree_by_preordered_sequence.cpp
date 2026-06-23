@@ -336,7 +336,7 @@ bool findPath(Node* root, int k, vector<int> &V){
     if(root->data == k){
         return true;
     }
-    if(((findPath(root->left, k, V))||(findPath(root->right, k, V)))){
+    if(((findPath(root->left, k, V)) || (findPath(root->right, k, V)))){
         return true;
     }
     V.pop_back();
@@ -363,7 +363,10 @@ int LCA(Node* root, int n1, int n2){
 //Lowest common ancestor 
 //Approch - 2 (time complexivity of o(n) + space complexivity of o(1))
 Node* LCA2(Node* root, int n1, int n2){
-    if(root->left == NULL && root->right == NULL){
+    // if(root->left == NULL && root->right == NULL){
+    //     return NULL;
+    // }
+    if(root == NULL){
         return NULL;
     }
     if(root->data == n1 || root->data == n2){
@@ -401,6 +404,21 @@ int KthAncistor(Node* root, int n, int k){
 
 // Transform to Sum Tree;
 
+// root to leaf path in BT
+bool helper(Node* root, Node* leaf, vector<Node*> &v){
+    if(root == nullptr){
+        return false;
+    }
+
+    v.push_back(root);
+    if(helper(root->left, leaf, v) || helper(root->right, leaf, v)){
+        
+    }
+}
+vector<Node*> rootToLeafPath(Node* root, Node* leaf){
+    vector<Node*> vec;
+    helper(root, leaf, vec);
+}
 
 int main() {  
     vector<int> arr = {1,2,4,-1,-1,5,-1,-1,3,-1,6,-1,-1};
