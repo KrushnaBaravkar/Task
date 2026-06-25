@@ -55,11 +55,43 @@ int MCM_mamo(const vector<int>& vec,
     return dp[i-1][j-1] = ans;
 }
 
+// Tabulation approch.
+int McmTab(vector<int> vec, int n/*left idx of vec*/, int m/*right idx of vec*/){
+    vector<vector<int>> dp(m+1, vector<int>(m+1, -1));
+
+    // Base cases
+    // BS 1 : for No of matrics == 0 there is no valid solution so store "-1" only
+
+    // BS 2 : when lenght is 1 or only one matrics is selected.
+    for(int a = 1; a<=m; a++){
+        dp[a][a] = 0;
+    } 
+
+    // Main loop
+    for(int len=2; len<=m; len++){
+        for(int i = 1; i <= ((m+1)-len); i++){// have a look at the dp array in notes to get how does that range of i decided.
+            int j = (i + len - 1);
+            dp[i][j] = INT_MAX;
+
+            for(int k = i; k<j; k++){// loop for partation conditions.
+                int cost1 = dp[i][k];
+                int cost2 = dp[k+1][j];
+
+                int curr_cost = (cost1 + cost2 + (vec[i-1]*vec[k]*vec[j]));
+
+                dp[i][j] = min(dp[i][j], curr_cost);
+            }
+        }
+    }
+
+    return dp[1][m];
+}
+
 int main() {
     vector<int> a = {1,2,3,4,3};
     int n = a.size();
     vector<vector<int>> dp(n-1, vector<int>(n-1, -1));
 
-    cout<<"Minimum poertion code for the given matrics is "<<MCM_mamo(a, 1, n-1, dp);  // for n elements in the vector there are only n-1 matrics will form in present question or case.
+    cout<<"Minimum poertion code for the given matrics is "<<McmTab(a, 1, n-1);  // for n elements in the vector there are only n-1 matrics will form in present question or case.
     return 0;
 }
