@@ -8,7 +8,7 @@ using namespace std;
 
 class graph{
     int v; // No. of vertex
-    list<int>* l;  // l is pointer points list<int> object. 
+    list<int>* l;  // l is list of pointers pointing adjacent bjects. 
 
 public:
     graph(int v){
@@ -25,7 +25,7 @@ public:
         for(int u =0; u<v; u++){   // accessing the vertexes 
             list<int> neighbour = l[u];
             cout<<u<<" : ";
-            for(int i : l[u]){   // accessing the neighbours of that perticular vertex.
+            for(int i : neighbour){   // accessing the neighbours of that perticular vertex.
                 cout<<i<<", ";
             }
             cout<<endl;
