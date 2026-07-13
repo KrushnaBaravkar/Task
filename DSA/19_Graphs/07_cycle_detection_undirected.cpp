@@ -1,4 +1,4 @@
-// cycle detection - for undirected graph - using BFS 
+// cycle detection - for undirected graph - using DFS 
 
 #include <bits/stdc++.h>
 using namespace std;

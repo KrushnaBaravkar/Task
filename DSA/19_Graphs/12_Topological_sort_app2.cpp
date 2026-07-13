@@ -34,7 +34,7 @@ public:
         calInDegree(indeg);
         queue<int> q;
 
-        // 0 indeg vertices will push into queue.
+        // 0 indegree vertices will push into queue.
         for(int i=0; i<v; i++){
             if(indeg[i] == 0){
                 q.push(i);

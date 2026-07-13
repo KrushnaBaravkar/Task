@@ -50,6 +50,7 @@ public:
         }
     }
     
+    // Finding is there any path between source node nad the destination node.
     bool pathHelper(int src, int dest, vector<bool> &vis) {
         if (src == dest) {
             return true;

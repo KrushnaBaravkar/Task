@@ -33,7 +33,7 @@ public:
                 return true;
             }
         }
-        recurssion[u] = false;   // backtrack - as recurssion for any cycle is ending, then we should recurssion tracker false so that next cycle can use that.
+        recurssion[u] = false;   // backtrack - as recurssion for any cycle is ending, then we should make recurssion tracker false so that next cycle can use that.
         return false;
     }
     
