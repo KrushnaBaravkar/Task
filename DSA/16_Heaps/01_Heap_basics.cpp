@@ -5,7 +5,7 @@ int main() {
     // heap is a one way to inplement priority queue.
     //here we are implementing a Priority Queue using a Heap (provided by STL).
     // implementing max heap in which top element is always the largest element.
-    //     priority_queue<int, vector<int>, less<int>> pq; -- code to implement the min heap.
+    ///*******priority_queue<int, vector<int>, less<int>> pq; -- code to implement the min heap.
     priority_queue<int> pq;
 
     pq.push(10);
