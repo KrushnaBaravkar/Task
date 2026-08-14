@@ -20,7 +20,7 @@ Node* buildTree(vector<int> vec){
     idx++;
 
     if(vec[idx] == -1){       // end of the branch.
-        return NULL;
+        return nullptr;
     }
 
     Node* currNode = new Node(vec[idx]);  // currNode is a pointer which is created to point the newly created node 

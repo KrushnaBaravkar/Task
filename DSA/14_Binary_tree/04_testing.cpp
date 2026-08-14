@@ -11,6 +11,12 @@ public:
         this -> data = data;   // paremeter data gets the value of that variable data
         left = right = NULL;
     }
+    
+    Node(int data, Node* left, Node* right){
+        this -> data = data;   // paremeter data gets the value of that variable data
+        this -> left = left;
+        this -> right = right;
+    }
 };
 
 // bottomview of the binary tree 
